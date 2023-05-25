@@ -1,1 +1,5 @@
---- {}
+---
+emqx::package_source: 'https://www.emqx.com/en/downloads/broker'
+emqx::version: '5.0.25'
+emqx::platform: 'el8'
+emqx::package_extension: 'rpm'
