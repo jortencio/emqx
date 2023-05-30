@@ -1,5 +1,7 @@
 ---
-emqx::package_source: 'https://www.emqx.com/en/downloads/broker'
-emqx::version: '5.0.25'
-emqx::platform: 'el8'
-emqx::package_extension: 'rpm'
+emqx::install_package_source: 'https://www.emqx.com/en/downloads/broker'
+emqx::install_version: '5.0.25'
+emqx::install_platform: 'el8'
+emqx::install_package_extension: 'rpm'
+emqx::service_ensure: 'running'
+emqx::service_enable: true

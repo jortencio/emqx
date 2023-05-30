@@ -1,2 +1,2 @@
 ---
-emqx::platform: 'amzn2'
+emqx::install_platform: 'amzn2'
