@@ -1,8 +1,8 @@
 ## Managed with Puppet
 node {
-  name = <%= $emqx::config::node_name %>
-  cookie = <%= $emqx::config::node_cookie %>
-  data_dir = <%= $emqx::config::node_data_dir %>
+  name = <%= "\"${emqx::config::node_name}\"" %>
+  cookie = <%= "\"${emqx::config::node_cookie}\"" %>
+  data_dir = <%= "\"${emqx::config::node_data_dir}\"" %>
 <% $emqx::config::node_options.each | $key, $value | { -%>
   <%= $key %> = <%= $value %>
 <% } -%>
