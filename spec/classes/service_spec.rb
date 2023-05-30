@@ -13,7 +13,7 @@ describe 'emqx::service' do
       end
       let(:facts) { os_facts }
       let(:params) do
-        { 
+        {
           ensure: 'running',
           enable: true,
         }
