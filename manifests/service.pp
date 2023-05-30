@@ -20,8 +20,8 @@ class emqx::service (
   Boolean $enable                                      = $emqx::service_enable,
 ) {
   service { 'emqx':
-    ensure  => $ensure,
-    enable  => $enable,
-    require => Package['emqx'],
+    ensure    => $ensure,
+    enable    => $enable,
+    subscribe => File['/etc/emqx/emqx.conf'],
   }
 }

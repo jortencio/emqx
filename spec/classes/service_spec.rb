@@ -7,7 +7,7 @@ describe 'emqx::service' do
     context "on #{os}" do
       let(:pre_condition) do
         <<-MANIFEST
-        package { 'emqx':
+        file { '/etc/emqx/emqx.conf':
         }
         MANIFEST
       end

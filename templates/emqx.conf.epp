@@ -1,0 +1,36 @@
+## Managed with Puppet
+node {
+  name = <%= $emqx::config::node_name %>
+  cookie = <%= $emqx::config::node_cookie %>
+  data_dir = <%= $emqx::config::node_data_dir %>
+<% $emqx::config::node_options.each | $key, $value | { -%>
+  <%= $key %> = <%= $value %>
+<% } -%>
+}
+
+cluster {
+  name = <%= $emqx::config::cluster_name %>
+  discovery_strategy = <%= $emqx::config::cluster_discovery_strategy %>
+<% $emqx::config::cluster_options.each | $key, $value | { -%>
+  <%= $key %> = <%= $value %>
+<% } -%>  
+}
+
+dashboard {
+  listeners.http {
+      bind = <%= $emqx::config::dashboard_listener_http_bind %>
+  }
+<% $emqx::config::dashboard_options.each | $key, $value | { -%>
+  <%= $key %> = <%= $value %>
+<% } -%>  
+}
+
+authorization {
+  deny_action = <%= $emqx::config::authorization_deny_action %>
+  no_match = <%= $emqx::config::authorization_no_match %>
+  cache = <%= $emqx::config::authorization_cache %>
+<% $emqx::config::authorization_options.each | $key, $value | { -%>
+  <%= $key %> = <%= $value %>
+<% } -%>  
+}
+

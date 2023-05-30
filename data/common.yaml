@@ -1,7 +1,24 @@
 ---
+lookup_options:
+  emqx::config_node_cookie:
+    convert_to: "Sensitive"
+
 emqx::install_package_source: 'https://www.emqx.com/en/downloads/broker'
 emqx::install_version: '5.0.25'
 emqx::install_platform: 'el8'
 emqx::install_package_extension: 'rpm'
 emqx::service_ensure: 'running'
 emqx::service_enable: true
+emqx::config_node_name: 'emqx@127.0.0.1'
+emqx::config_node_cookie: 'emqxsecretcookie'
+emqx::config_node_data_dir: '/var/lib/emqx'
+emqx::config_node_options: {}
+emqx::config_cluster_name: 'emqxcl'
+emqx::config_cluster_discovery_strategy: 'manual'
+emqx::config_cluster_options: {}
+emqx::config_dashboard_listener_http_bind: 18083
+emqx::config_dashboard_options: {}
+emqx::config_authorization_deny_action: 'ignore'
+emqx::config_authorization_no_match: 'allow'
+emqx::config_authorization_cache: '{ enable = true }'
+emqx::config_authorization_options: {}
