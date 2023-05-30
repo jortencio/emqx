@@ -21,7 +21,7 @@ describe 'emqx::config' do
           cluster_name: 'emqxcl',
           cluster_discovery_strategy: 'manual',
           cluster_options: {},
-          dashboard_listener_http_bind: 18083,
+          dashboard_listener_http_bind: 18_083,
           dashboard_options: {},
           authorization_deny_action: 'ignore',
           authorization_no_match: 'allow',
