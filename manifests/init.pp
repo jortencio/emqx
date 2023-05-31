@@ -26,6 +26,7 @@
 #
 #    Boolean for enabling/disabling the service
 #
+# @param manage_config
 # @param config_node_name
 # @param config_node_cookie
 # @param config_node_data_dir
@@ -49,6 +50,7 @@ class emqx (
   String                                             $install_package_extension           = 'rpm',
   Variant[Enum['running', 'stopped'], Boolean]       $service_ensure                      = 'running',
   Boolean                                            $service_enable                      = true,
+  Boolean                                            $manage_config                       = true,
   String[1]                                          $config_node_name                    = 'emqx@127.0.0.1',
   Sensitive[String[1]]                               $config_node_cookie                  = Sensitive('emqxsecretcookie'),
   String                                             $config_node_data_dir                = '/var/lib/emqx',

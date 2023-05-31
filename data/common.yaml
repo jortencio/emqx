@@ -9,6 +9,7 @@ emqx::install_platform: 'el8'
 emqx::install_package_extension: 'rpm'
 emqx::service_ensure: 'running'
 emqx::service_enable: true
+emqx::manage_config: true
 emqx::config_node_name: 'emqx@127.0.0.1'
 emqx::config_node_cookie: 'emqxsecretcookie'
 emqx::config_node_data_dir: '/var/lib/emqx'

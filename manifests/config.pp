@@ -2,6 +2,7 @@
 #
 # A description of what this class does
 #
+# @param manage_config
 # @param node_name
 # @param node_cookie
 # @param node_data_dir
@@ -19,6 +20,7 @@
 # @example
 #   include emqx::config
 class emqx::config (
+  Boolean                                            $manage_config                = $emqx::manage_config,
   String[1]                                          $node_name                    = $emqx::config_node_name,
   Sensitive[String[1]]                               $node_cookie                  = $emqx::config_node_cookie,
   String                                             $node_data_dir                = $emqx::config_node_data_dir,
@@ -33,12 +35,14 @@ class emqx::config (
   String[1]                                          $authorization_cache          = $emqx::config_authorization_cache,
   Hash                                               $authorization_options        = $emqx::config_authorization_options,
 ) {
-  file { '/etc/emqx/emqx.conf':
-    ensure  => file,
-    owner   => 'emqx',
-    group   => 'emqx',
-    mode    => '0644',
-    content => epp('emqx/emqx.conf.epp'),
-    require => Package['emqx'],
+  if $manage_config {
+    file { '/etc/emqx/emqx.conf':
+      ensure  => file,
+      owner   => 'emqx',
+      group   => 'emqx',
+      mode    => '0644',
+      content => epp('emqx/emqx.conf.epp'),
+      require => Package['emqx'],
+    }
   }
 }
