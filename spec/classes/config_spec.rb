@@ -12,7 +12,8 @@ describe 'emqx::config' do
         MANIFEST
       end
       let(:facts) { os_facts }
-      context "manage_config is set to true" do
+
+      context 'manage_config is set to true' do
         let(:params) do
           {
             manage_config: true,
@@ -35,7 +36,7 @@ describe 'emqx::config' do
         it { is_expected.to contain_file('/etc/emqx/emqx.conf') }
       end
 
-      context "manage_config is set to false" do
+      context 'manage_config is set to false' do
         let(:params) do
           {
             manage_config: false,
@@ -55,7 +56,7 @@ describe 'emqx::config' do
           }
         end
 
-        it { is_expected.to_not contain_file('/etc/emqx/emqx.conf') }
+        it { is_expected.not_to contain_file('/etc/emqx/emqx.conf') }
       end
     end
   end
