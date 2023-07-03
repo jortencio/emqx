@@ -16,7 +16,7 @@ describe 'emqx' do
     it { is_expected.to be_installed }
   end
 
-  describe port(18_083) do
+  describe port(1883) do
     it { is_expected.to be_listening }
   end
 
