@@ -1,9 +1,10 @@
 require 'spec_helper_acceptance'
 
-describe 'EMQX Message Broker', if: ['RedHat'].include?(os[:family]) do
+describe 'emqx' do
+  context 'default parameters'
   let(:pp) do
     <<-MANIFEST
-      include emqx
+      class { 'emqx': }
     MANIFEST
   end
 
@@ -11,7 +12,16 @@ describe 'EMQX Message Broker', if: ['RedHat'].include?(os[:family]) do
     idempotent_apply(pp)
   end
 
-  describe port(18083) do
+  describe package('emqx') do
+    it { is_expected.to be_installed }
+  end
+
+  describe port(18_083) do
     it { is_expected.to be_listening }
+  end
+
+  describe service('emqx') do
+    it { is_expected.to be_enabled }
+    it { is_expected.to be_running }
   end
 end
