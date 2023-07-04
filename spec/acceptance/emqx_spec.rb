@@ -16,12 +16,12 @@ describe 'emqx' do
     it { is_expected.to be_installed }
   end
 
-  describe port(1883) do
-    it { is_expected.to be_listening }
-  end
-
   describe service('emqx') do
     it { is_expected.to be_enabled }
     it { is_expected.to be_running }
+  end
+
+  describe port(1883) do
+    it { is_expected.to be_listening }
   end
 end
