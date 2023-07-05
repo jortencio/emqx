@@ -34,12 +34,11 @@
 # @param config_cluster_name
 # @param config_cluster_discovery_strategy
 # @param config_cluster_options
-# @param config_dashboard_listener_http_bind
-# @param config_dashboard_options
-# @param config_authorization_deny_action
-# @param config_authorization_no_match
-# @param config_authorization_cache
+# @param config_dashboard_listeners_ssl
+# @param config_dashboard_listeners_bind
+# @param config_dashboard_listeners_options
 # @param config_authorization_options
+# @param config_additional_configs
 #
 # @example
 #   include emqx
@@ -58,12 +57,11 @@ class emqx (
   String[1]                                          $config_cluster_name                 = 'emqxcl',
   Enum['manual','static','mcast','dns','etcd','k8s'] $config_cluster_discovery_strategy   = 'manual',
   Hash                                               $config_cluster_options              = {},
-  Variant[Integer,String[1]]                         $config_dashboard_listener_http_bind = 18083,
-  Hash                                               $config_dashboard_options            = {},
-  Enum['ignore','disconnect']                        $config_authorization_deny_action    = 'ignore',
-  Enum['allow','deny']                               $config_authorization_no_match       = 'allow',
-  String[1]                                          $config_authorization_cache          = '{ enable = true }',
+  Boolean                                            $config_dashboard_listeners_ssl      = false,
+  Variant[Integer,String[1]]                         $config_dashboard_listeners_bind     = 18083,
+  Hash                                               $config_dashboard_listeners_options  = {},
   Hash                                               $config_authorization_options        = {},
+  Hash                                               $config_additional_configs           = {},
 ) {
   include emqx::install
   include emqx::config

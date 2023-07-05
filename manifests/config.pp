@@ -10,12 +10,11 @@
 # @param cluster_name
 # @param cluster_discovery_strategy
 # @param cluster_options
-# @param dashboard_listener_http_bind
-# @param dashboard_options
-# @param authorization_deny_action
-# @param authorization_no_match
-# @param authorization_cache
+# @param dashboard_listeners_ssl
+# @param dashboard_listeners_bind
+# @param dashboard_listeners_options
 # @param authorization_options
+# @param additional_configs
 #
 # @example
 #   include emqx::config
@@ -28,12 +27,11 @@ class emqx::config (
   String[1]                                          $cluster_name                 = $emqx::config_cluster_name,
   Enum['manual','static','mcast','dns','etcd','k8s'] $cluster_discovery_strategy   = $emqx::config_cluster_discovery_strategy,
   Hash                                               $cluster_options              = $emqx::config_cluster_options,
-  Variant[Integer,String[1]]                         $dashboard_listener_http_bind = $emqx::config_dashboard_listener_http_bind,
-  Hash                                               $dashboard_options            = $emqx::config_dashboard_options,
-  Enum['ignore','disconnect']                        $authorization_deny_action    = $emqx::config_authorization_deny_action,
-  Enum['allow','deny']                               $authorization_no_match       = $emqx::config_authorization_no_match,
-  String[1]                                          $authorization_cache          = $emqx::config_authorization_cache,
+  Boolean                                            $dashboard_listeners_ssl      = $emqx::config_dashboard_listeners_ssl,
+  Variant[Integer,String[1]]                         $dashboard_listeners_bind     = $emqx::config_dashboard_listeners_bind,
+  Hash                                               $dashboard_listeners_options  = $emqx::config_dashboard_listeners_options,
   Hash                                               $authorization_options        = $emqx::config_authorization_options,
+  Hash                                               $additional_configs           = $emqx::config_additional_configs,
 ) {
   if $manage_config {
     file { '/etc/emqx/emqx.conf':

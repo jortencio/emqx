@@ -16,21 +16,28 @@ cluster {
 <% } -%>  
 }
 
-dashboard {
-  listeners.http {
-      bind = <%= $emqx::config::dashboard_listener_http_bind %>
-  }
-<% $emqx::config::dashboard_options.each | $key, $value | { -%>
+<% if $emqx::config::dashboard_listeners_ssl { -%> 
+  dashboard.listeners.https { 
+<% } else { -%>
+dashboard.listeners.http {
+<% } -%>
+  bind = <%= $emqx::config::dashboard_listeners_bind %>
+<% $emqx::config::dashboard_listeners_options.each | $key, $value | { -%>
   <%= $key %> = <%= $value %>
-<% } -%>  
+<% } -%>
 }
 
 authorization {
-  deny_action = <%= $emqx::config::authorization_deny_action %>
-  no_match = <%= $emqx::config::authorization_no_match %>
-  cache = <%= $emqx::config::authorization_cache %>
 <% $emqx::config::authorization_options.each | $key, $value | { -%>
   <%= $key %> = <%= $value %>
+<% } -%>
+}
+
+<% $emqx::config::additional_config.each | $config_path, $config | { -%>
+<%= $config_path %> {
+<% $config.each | $field, $value | { -%>
+  <%= $field %> = <%= $value %>
 <% } -%>  
 }
 
+<% } -%>
