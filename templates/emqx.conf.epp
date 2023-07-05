@@ -33,7 +33,7 @@ authorization {
 <% } -%>
 }
 
-<% $emqx::config::additional_config.each | $config_path, $config | { -%>
+<% $emqx::config::additional_configs.each | $config_path, $config | { -%>
 <%= $config_path %> {
 <% $config.each | $field, $value | { -%>
   <%= $field %> = <%= $value %>

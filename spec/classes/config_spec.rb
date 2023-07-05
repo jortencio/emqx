@@ -24,12 +24,15 @@ describe 'emqx::config' do
             cluster_name: 'emqxcl',
             cluster_discovery_strategy: 'manual',
             cluster_options: {},
-            dashboard_listener_http_bind: 18_083,
-            dashboard_options: {},
-            authorization_deny_action: 'ignore',
-            authorization_no_match: 'allow',
-            authorization_cache: '{ enable = true }',
-            authorization_options: {}
+            dashboard_listeners_ssl: false,
+            dashboard_listeners_bind: 18_083,
+            dashboard_listeners_options: {},
+            authorization_options: {
+              deny_action: 'ignore',
+              no_match: 'allow',
+              cache: '{ enable = true }'
+            },
+            additional_configs: {}
           }
         end
 
@@ -47,12 +50,15 @@ describe 'emqx::config' do
             cluster_name: 'emqxcl',
             cluster_discovery_strategy: 'manual',
             cluster_options: {},
-            dashboard_listener_http_bind: 18_083,
-            dashboard_options: {},
-            authorization_deny_action: 'ignore',
-            authorization_no_match: 'allow',
-            authorization_cache: '{ enable = true }',
-            authorization_options: {}
+            dashboard_listeners_ssl: false,
+            dashboard_listeners_bind: 18_083,
+            dashboard_listeners_options: {},
+            authorization_options: {
+              deny_action: 'ignore',
+              no_match: 'allow',
+              cache: '{ enable = true }'
+            },
+            additional_configs: {}
           }
         end
 
