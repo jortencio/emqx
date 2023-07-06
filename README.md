@@ -1,117 +1,96 @@
 # emqx
 
-Welcome to your new module. A short overview of the generated parts can be found
-in the [PDK documentation][1].
+A Puppet module that is used for installing and configuring the EMQX MQTT Broker.
 
-The README template below provides a starting point with details about what
-information to include in your README.
+For more information, please visit [EMQX][1]
 
 ## Table of Contents
 
 1. [Description](#description)
-1. [Setup - The basics of getting started with emqx](#setup)
+1. [Setup](#setup)
     * [What emqx affects](#what-emqx-affects)
     * [Setup requirements](#setup-requirements)
     * [Beginning with emqx](#beginning-with-emqx)
-1. [Usage - Configuration options and additional functionality](#usage)
-1. [Limitations - OS compatibility, etc.](#limitations)
-1. [Development - Guide for contributing to the module](#development)
+1. [Usage](#usage)
+1. [Limitations](#limitations)
+1. [Development](#development)
 
 ## Description
 
-Briefly tell users why they might want to use your module. Explain what your
-module does and what kind of problems users can solve with it.
-
-This should be a fairly short description helps the user decide if your module
-is what they want.
+This Puppet module is used to do a basic installation of the EMQX MQTT Broker.
 
 ## Setup
 
-### What emqx affects **OPTIONAL**
+### What emqx affects
 
-If it's obvious what your module touches, you can skip this section. For
-example, folks can probably figure out that your mysql_instance module affects
-their MySQL instances.
+The emqx module configures the following:
 
-If there's more that they should know about, though, this is the place to
-mention:
+ - Downloads and installs the emqx software package
+ - Configures the emqx.conf configuration file
+ - Manages the emqx service
 
-* Files, packages, services, or operations that the module will alter, impact,
-  or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
+### Setup Requirements
 
-### Setup Requirements **OPTIONAL**
+Please refer to the [EMQX Installation documenation][2] for minimum requirements for an EMQX MQTT Broker installation.
 
-If your module requires anything extra before setting up (pluginsync enabled,
-another module, etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section here.
+Note: This module has currently only been tested on Amazon Linux and EL8.
 
 ### Beginning with emqx
 
-The very basic steps needed for a user to get the module up and running. This
-can include setup steps, if necessary, or it can be an example of the most basic
-use of the module.
+In order to get started with the emqx module with a basic configuration:
+
+```puppet
+include emqx
+```
 
 ## Usage
 
-Include usage examples for common use cases in the **Usage** section. Show your
-users how to use your module to solve problems, and be sure to include code
-examples. Include three to five examples of the most important or common tasks a
-user can accomplish with your module. Show users how to accomplish more complex
-tasks that involve different types, classes, and functions working in tandem.
+This module supports the use of Hiera data for setting parameters. The following is a list of parameters configurable in Hiera (Please refer to REFERENCE.md for more details and the [EMQX configuration documentation][3] ):
 
-## Reference
+```yaml
+emqx::install_package_source: 
+emqx::install_version: 
+emqx::install_platform: 
+emqx::install_package_extension: 
+emqx::service_ensure: 
+emqx::service_enable: true
+emqx::manage_config: true
+emqx::config_node_name: 
+emqx::config_node_cookie: 
+emqx::config_node_data_dir: 
+emqx::config_node_options: 
+emqx::config_cluster_name: 
+emqx::config_cluster_discovery_strategy: 
+emqx::config_cluster_options: 
+emqx::config_dashboard_listeners_ssl:
+emqx::config_dashboard_listeners_bind: 
+emqx::config_dashboard_listeners_options:
+emqx::config_authorization_options:
+  deny_action:
+  no_match:
+  cache:
+emqx::config_additional_configs:
+```
 
-This section is deprecated. Instead, add reference information to your code as
-Puppet Strings comments, and then use Strings to generate a REFERENCE.md in your
-module. For details on how to add code comments and generate documentation with
-Strings, see the [Puppet Strings documentation][2] and [style guide][3].
-
-If you aren't ready to use Strings yet, manually create a REFERENCE.md in the
-root of your module directory and list out each of your module's classes,
-defined types, facts, functions, Puppet tasks, task plans, and resource types
-and providers, along with the parameters for each.
-
-For each element (class, defined type, function, and so on), list:
-
-* The data type, if applicable.
-* A description of what the element does.
-* Valid values, if the data type doesn't make it obvious.
-* Default value, if any.
-
-For example:
+Note: The key ```emqx::config_node_cookie``` is a sensitive variable.  If overiding this value in a different layer of hiera (e.g. the environment layer),
+add the following configuration in common.yaml to convert the value to be sensitive.
 
 ```
-### `pet::cat`
-
-#### Parameters
-
-##### `meow`
-
-Enables vocalization in your cat. Valid options: 'string'.
-
-Default: 'medium-loud'.
+lookup_options:
+  emqx::config_node_cookie:
+    convert_to: "Sensitive"
 ```
 
 ## Limitations
 
-In the Limitations section, list any incompatibilities, known issues, or other
-warnings.
+  * Currently this module is limited to configuring emqx.conf configuration file
 
 ## Development
 
-In the Development section, tell other users the ground rules for contributing
-to your project and how they should submit their work.
+If you would like to contribute with the development of this module, please feel free to log development changes in the [issues][4] register for this project  
 
-## Release Notes/Contributors/Etc. **Optional**
 
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You can also add any additional sections you feel are
-necessary or important to include here. Please use the `##` header.
-
-[1]: https://puppet.com/docs/pdk/latest/pdk_generating_modules.html
-[2]: https://puppet.com/docs/puppet/latest/puppet_strings.html
-[3]: https://puppet.com/docs/puppet/latest/puppet_strings_style.html
+[1]: https://www.emqx.io/
+[2]: https://www.emqx.io/docs/en/latest/deploy/install.html
+[3]: https://www.emqx.io/docs/en/latest/admin/cfg.html
+[4]: https://github.com/jortencio/emqx/issues
