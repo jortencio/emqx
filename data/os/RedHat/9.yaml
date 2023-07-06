@@ -1,2 +1,2 @@
 ---
-emqx::platform: 'el9'
+emqx::install_platform: 'el9'

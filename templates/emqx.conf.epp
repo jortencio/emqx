@@ -1,0 +1,43 @@
+## Managed with Puppet
+node {
+  name = <%= "\"${emqx::config::node_name}\"" %>
+  cookie = <%= "\"${emqx::config::node_cookie.unwrap}\"" %>
+  data_dir = <%= "\"${emqx::config::node_data_dir}\"" %>
+<% $emqx::config::node_options.each | $key, $value | { -%>
+  <%= $key %> = <%= $value %>
+<% } -%>
+}
+
+cluster {
+  name = <%= $emqx::config::cluster_name %>
+  discovery_strategy = <%= $emqx::config::cluster_discovery_strategy %>
+<% $emqx::config::cluster_options.each | $key, $value | { -%>
+  <%= $key %> = <%= $value %>
+<% } -%>  
+}
+
+<% if $emqx::config::dashboard_listeners_ssl { -%> 
+  dashboard.listeners.https { 
+<% } else { -%>
+dashboard.listeners.http {
+<% } -%>
+  bind = <%= $emqx::config::dashboard_listeners_bind %>
+<% $emqx::config::dashboard_listeners_options.each | $key, $value | { -%>
+  <%= $key %> = <%= $value %>
+<% } -%>
+}
+
+authorization {
+<% $emqx::config::authorization_options.each | $key, $value | { -%>
+  <%= $key %> = <%= $value %>
+<% } -%>
+}
+
+<% $emqx::config::additional_configs.each | $config_path, $config | { -%>
+<%= $config_path %> {
+<% $config.each | $field, $value | { -%>
+  <%= $field %> = <%= $value %>
+<% } -%>  
+}
+
+<% } -%>

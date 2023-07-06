@@ -1,2 +1,2 @@
 ---
-emqx::platform: 'el7'
+emqx::install_platform: 'el7'
