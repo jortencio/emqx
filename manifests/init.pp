@@ -4,7 +4,7 @@
 #
 # @param install_package_source
 #
-#    The location to source the package from.  Default: 'https://www.emqx.com/en/downloads/broker'
+#    The location to source the package from.
 #
 # @param install_version
 #
@@ -12,76 +12,75 @@
 #
 # @param install_platform
 #
-#    The os platform in order to download the required package. Default: 'el8'
+#    The os platform in order to download the required package.
 #
 # @param install_package_extension
 #
-#    The file extension for the package. Default: 'rpm'
+#    The file extension for the package.
 #
 # @param service_ensure
 #
-#    The state of the service. Default: 'running'
+#    The state of the service.
 #
 # @param service_enable
 #
-#    Boolean for enabling/disabling the service. Default: true
+#    Boolean for enabling/disabling the service.
 #
 # @param manage_config
 #
-#  Boolean for setting whether to manage emqx.conf. Default: true
+#  Boolean for setting whether to manage emqx.conf.
 #
 # @param config_node_name
 #
-#  String for setting the name field for the node config path.  Default: 'emqx@127.0.0.1'
+#  String for setting the name field for the node config path.
 #
 # @param config_node_cookie
 #
-#  Sensitive string for setting the cookie field for the node config path. Default: Sensitive('emqxsecretcookie')
+#  Sensitive string for setting the cookie field for the node config path.
 #
 # @param config_node_data_dir
 #
-#  String for setting the data_dir field for the node config path. Default: '/var/lib/emqx'
+#  String for setting the data_dir field for the node config path.
 #
 # @param config_node_options
 #
-#  Hash for setting additional fields under the node config path.  Note: Do not set name, cooke and data_dir fields here. Default: {}
+#  Hash for setting additional fields under the node config path.  Note: Do not set name, cooke and data_dir fields here.
 #
 # @param config_cluster_name
 #
-#  String for setting the name field for the cluster config path. Default: 'emqxcl'
+#  String for setting the name field for the cluster config path.
 #
 # @param config_cluster_discovery_strategy
 #
-#  Enum String for setting the discovery_strategy field for the cluster config path. Default: 'manual'
+#  Enum String for setting the discovery_strategy field for the cluster config path.
 #
 # @param config_cluster_options
 #
-#  Hash for setting additional fields under the cluster config path.  Note: Do not set name, cooke and data_dir fields here.   Default: {} 
+#  Hash for setting additional fields under the cluster config path.  Note: Do not set name, cooke and data_dir fields here.
 #  Note: Do not set name and discovery_strategy fields here.
 #
 # @param config_dashboard_listeners_ssl
 #
 #  Boolean for setting ssl for the dashboard listener configuration.  i.e. Use config path if true dashboard.listeners.https, 
-#  else dashboard.listeners.http.  Default: false
+#  else dashboard.listeners.http.
 #
 # @param config_dashboard_listeners_bind
 #
-#  Integer or String for setting the emqx dashboard bind address as either a port or bind ip:port respectively.  Default: 18083
+#  Integer or String for setting the emqx dashboard bind address as either a port or bind ip:port respectively.
 #
 # @param config_dashboard_listeners_options
 #
 #  Hash for setting additional fields under the dashboard.listeners.http or dashboard.listeners.https config path.
-#  Note: Do not set bind and option fields here.  Default: {}
+#  Note: Do not set bind and option fields here.
 #
 # @param config_authorization_options
 #
 #  Hash for setting additional fields under the authorization config path.  
-#  Default: { deny_action => 'ignore', no_match => 'allow', cache => '{ enable = true }', }
 #
 # @param config_additional_configs
 #
 #  Hash for setting additional config paths and fields.
-#  Note: Do not set the following config_paths here: node, cluster, dashboard, authorization.  Default: {}
+#  Note: Do not set the following config_paths here: node, cluster, dashboard, authorization.
 #
 # @example
 #   include emqx
