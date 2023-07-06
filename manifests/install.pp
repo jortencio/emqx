@@ -4,19 +4,19 @@
 #
 # @param package_source
 #
-#    The location to source the package from
+#    The location to source the package from.  Default: emqx::install_package_source
 #
 # @param version
 #
-#    The version of emqx
+#    The version of emqx.  Default: emqx::install_version
 #
 # @param platform
 #
-#    The os platform in order to download the required package
+#    The os platform in order to download the required package.  Default: emqx::install_platform
 #
 # @param package_extension
 #
-#    The file extension for the package
+#    The file extension for the package.  Default: emqx::install_package_extension
 #
 # @example
 #   include emqx::install

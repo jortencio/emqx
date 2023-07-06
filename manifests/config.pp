@@ -4,59 +4,60 @@
 #
 # @param manage_config
 #
-#  Boolean for setting whether to manage emqx.conf
+#  Boolean for setting whether to manage emqx.conf.  Default: emqx::manage_config
 #
 # @param node_name
 #
-#  String for setting the name field for the node config path
+#  String for setting the name field for the node config path.  Default: emqx::config_node_name
 #
 # @param node_cookie
 #
-#  Sensitive string for setting the cookie field for the node config path
+#  Sensitive string for setting the cookie field for the node config path.  Default: emqx::config_node_cookie
 #
 # @param node_data_dir
 #
-#  String for setting the data_dir field for the node config path
+#  String for setting the data_dir field for the node config path.  Default: emqx::config_node_data_dir
 #
 # @param node_options
 #
-#  Hash for setting additional fields under the node config path.  Note: Do not set name, cooke and data_dir fields here.
+#  Hash for setting additional fields under the node config path.  Note: Do not set name, cooke and data_dir fields here.  
+#  Default: emqx::config_node_options
 #
 # @param cluster_name
 #
-#  String for setting the name field for the cluster config path
+#  String for setting the name field for the cluster config path. Default: emqx::config_cluster_name
 #
 # @param cluster_discovery_strategy
 #
-#  Enum String for setting the discovery_strategy field for the cluster config path.
+#  Enum String for setting the discovery_strategy field for the cluster config path. Default: emqx::config_cluster_discovery_strategy
 #
 # @param cluster_options
 #
 #  Hash for setting additional fields under the cluster config path.  Note: Do not set name, cooke and data_dir fields here.  
-#  Note: Do not set name and discovery_strategy fields here.
+#  Note: Do not set name and discovery_strategy fields here.  Default: emqx::config_cluster_options
 #
 # @param dashboard_listeners_ssl
 #
 #  Boolean for setting ssl for the dashboard listener configuration.  i.e. Use config path if true dashboard.listeners.https, 
-#  else dashboard.listeners.http
+#  else dashboard.listeners.http.  Default: emqx::config_dashboard_listeners_ssl
 #
 # @param dashboard_listeners_bind
 #
-#  Integer or String for setting the bind as either a port or bind ip:port respectively.
+#  Integer or String for setting the bind as either a port or bind ip:port respectively.  Default: emqx::config_dashboard_listeners_bind
 #
 # @param dashboard_listeners_options
 #
 #  Hash for setting additional fields under the dashboard.listeners.http or dashboard.listeners.https config path.
-#  Note: Do not set bind and option fields here.
+#  Note: Do not set bind and option fields here.  Default: emqx::config_dashboard_listeners_options
 #
 # @param authorization_options
 #
-#  Hash for setting additional fields under the authorization config path.
+#  Hash for setting additional fields under the authorization config path.  Default: emqx::config_authorization_options
 #
 # @param additional_configs
 #
 #  Hash for setting additional config paths and fields.
-#  Note: Do not set the following config_paths here: node, cluster, dashboard, authorization
+#  Note: Do not set the following config_paths here: node, cluster, dashboard, authorization.  Default: emqx::config_additional_configs
 #
 # @example
 #   include emqx::config
