@@ -1,6 +1,6 @@
 # emqx
 
-A Puppet module that is used for installing and configuring the EMQX MQTT Broker.
+A Puppet module that is used for installing and configuring an EMQX MQTT Broker.
 
 For more information, please visit [EMQX][1]
 
