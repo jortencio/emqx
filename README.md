@@ -45,7 +45,9 @@ include emqx
 
 ## Usage
 
-This module supports the use of Hiera data for setting parameters. The following is a list of parameters configurable in Hiera (Please refer to REFERENCE.md for more details and the [EMQX configuration documentation][3] ):
+### Hiera Support
+
+This module supports the use of Hiera data for setting parameters. The following is a list of parameters configurable in Hiera (Please refer to REFERENCE.md for more details):
 
 ```yaml
 emqx::install_package_source: 
@@ -72,7 +74,9 @@ emqx::config_authorization_options:
 emqx::config_additional_configs:
 ```
 
-Note: The key ```emqx::config_node_cookie``` is a sensitive variable.  If overiding this value in a different layer of hiera (e.g. the environment layer),
+### Setting the Node cookie configuration
+
+The key ```emqx::config_node_cookie``` is a sensitive variable.  If overiding this value in a different layer of hiera (e.g. the environment layer),
 add the following configuration in common.yaml to convert the value to be sensitive.
 
 ```
@@ -81,13 +85,40 @@ lookup_options:
     convert_to: "Sensitive"
 ```
 
+### Setting other configuration option paths
+
+Currently the emqx module has direct parameters for setting configurations under the node, cluster, dashboard.listener.http/dashboard.listener.https and authorization configuration paths. 
+However, it is also possible to set configurations for other configuration option paths using the parameter ```emqx::config_additional_configs``` as the following yaml hash follows:
+
+Format
+
+```yaml
+emqx::config_additional_configs:
+  <configuration_path_x>
+    <field_x_1>: <value_x_1>
+    <field_x_2>: <value_x_2>
+  <configuration_path_y>
+    <field_y_1>: <value_y_1>
+```
+
+Example:
+
+```yaml
+emqx::config_additional_configs:
+  force_shutdown:
+    enable: false
+    max_heap_size: "128MB"
+```
+
+For more information regarding the EMQX configuration paths and fields, visit [EMQX configuration documentation][3].
+
 ## Limitations
 
-  * Currently this module is limited to configuring emqx.conf configuration file
+  * Currently this module is limited to configurations possible in emqx.conf
 
 ## Development
 
-If you would like to contribute with the development of this module, please feel free to log development changes in the [issues][4] register for this project  
+If you would like to contribute with the development of this module, please feel free to log development changes in the [issues][4] register for this project.
 
 
 [1]: https://www.emqx.io/
