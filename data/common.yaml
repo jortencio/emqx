@@ -20,9 +20,6 @@ emqx::config_cluster_options: {}
 emqx::config_dashboard_listeners_ssl: false
 emqx::config_dashboard_listeners_bind: 18083
 emqx::config_dashboard_listeners_options: {}
-emqx::config_authorization_deny_action: 'ignore'
-emqx::config_authorization_no_match: 'allow'
-emqx::config_authorization_cache: '{ enable = true }'
 emqx::config_authorization_options:
   deny_action: 'ignore'
   no_match: 'allow'
