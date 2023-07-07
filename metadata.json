@@ -2,9 +2,11 @@
   "name": "jortencio-emqx",
   "version": "0.1.0",
   "author": "jortencio",
-  "summary": "",
+  "summary": "A Puppet module that is used for installing and configuring the EMQX MQTT Broker.",
   "license": "Apache-2.0",
-  "source": "",
+  "source": "https://github.com/jortencio/emqx",
+  "project_page": "https://github.com/jortencio/emqx",
+  "issues_url": "https://github.com/jortencio/emqx/issues",
   "dependencies": [
 
   ],

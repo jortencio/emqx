@@ -4,11 +4,11 @@
 #
 # @param ensure
 #
-#    The state of the service
+#    The state of the service.
 #
 # @param enable
 #
-#    Boolean for enabling/disabling the service
+#    Boolean for enabling/disabling the service.
 #
 # @example
 #   include emqx::service
