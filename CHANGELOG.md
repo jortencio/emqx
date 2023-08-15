@@ -2,10 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-## Release 0.1.0
+## Release v0.1.0
 
-**Features**
+### Features
 
-**Bugfixes**
+- Initial Release - Basic configuration of EMQX MQTT Broker
 
-**Known Issues**
+### Bugfixes
+
+### Known Issues
