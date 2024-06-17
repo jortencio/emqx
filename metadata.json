@@ -16,12 +16,6 @@
       "operatingsystemrelease": [
         "8"
       ]
-    },
-    {
-      "operatingsystem": "RedHat",
-      "operatingsystemrelease": [
-        "8"
-      ]
     }
   ],
   "requirements": [
