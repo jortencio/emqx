@@ -43,7 +43,7 @@ jobs:
         bundle exec matrix_from_metadata_v2
 
   acceptance:
-    name: "Acceptance tests (${{matrix.platform.label}}, ${{matrix.collection}})"
+    name: "Acceptance tests (${{matrix.platforms.label}}, ${{matrix.collection}})"
     needs:
       - setup_matrix
     if: ${{ needs.setup_matrix.outputs.matrix != '{}' }}
@@ -84,7 +84,7 @@ jobs:
     - name: Provision test environment
       run: |
         # bundle exec rake "litmus:provision_list[docker]"
-        bundle exec rake "litmus:provision[${{matrix.platforms.provider}},${{ matrix.platforms.image }}
+        bundle exec rake "litmus:provision[${{matrix.platforms.provider}},${{ matrix.platforms.image }}]"
         FILE='spec/fixtures/litmus_inventory.yaml'
         sed -e 's/password: .*/password: "[redacted]"/' < $FILE || true
 
