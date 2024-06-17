@@ -1,5 +1,8 @@
 ---
-default:
+docker:
   provisioner: docker
   images:
-  - litmusimage/rockylinux:8
+  - litmusimage/centos:7
+  - litmusimage/oraclelinux:7
+  - litmusimage/redhat:8
+  - litmusimage/scientificlinux:7
