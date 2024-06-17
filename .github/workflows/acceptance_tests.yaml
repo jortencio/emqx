@@ -40,7 +40,7 @@ jobs:
         # else
         #   echo  "matrix={}"  >> $GITHUB_OUTPUT
         # fi
-        bundle exec matrix_from_metadata_v2 --provision-service
+        bundle exec matrix_from_metadata_v2
 
   acceptance:
     name: "Acceptance tests (${{matrix.platforms.label}}, ${{matrix.collection}})"
@@ -60,16 +60,6 @@ jobs:
     steps:
     - name: Checkout Source
       uses: actions/checkout@v3
-
-    - name: "Disable Apparmor"
-      if: ${{ inputs.disable_apparmor }}
-      run: |
-        if command -v apparmor_parser >/dev/null ; then
-          sudo find /etc/apparmor.d/ -maxdepth 1 -type f -exec ln -sf {} /etc/apparmor.d/disable/ \;
-          sudo apparmor_parser -R /etc/apparmor.d/disable/* || true
-          sudo systemctl disable apparmor
-          sudo systemctl stop apparmor
-        fi
 
     - name: Activate Ruby 2.7
       uses: ruby/setup-ruby@v1
