@@ -35,7 +35,7 @@ jobs:
     - name: Setup Acceptance Test Matrix
       id: get-matrix
       run: |
-        if [ '${{ github.repository_owner }}' == 'jotencio' ]; then
+        if [ '${{ github.repository_owner }}' == 'jortencio' ]; then
           echo  "matrix={'platform':['centos-stream8'],'collection':['puppet7-nightly', 'puppet8-nightly']}" >> $GITHUB_OUTPUT
         else
           echo  "matrix={}"  >> $GITHUB_OUTPUT
