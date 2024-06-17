@@ -87,6 +87,7 @@ jobs:
     - name: Install Agents and module
       run: |
         bundle exec rake 'litmus:install_agent'
+        bundle exec bolt command run 'puppet --version' --targets localhost:2222 --inventoryfile spec/fixtures/litmus_inventory.yaml
         bundle exec rake litmus:install_module
 
     - name: Run integration tests
