@@ -28,12 +28,12 @@ jobs:
     name: "Acceptance tests (${{matrix.platform.label}}, ${{matrix.collection}})"
     needs:
       - get-matrix
-    if: ${{ needs.setup_matrix.outputs.matrix != '{}' }}
+    if: ${{ needs.get-matrix.outputs.matrix != '{}' }}
 
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(needs.setup_matrix.outputs.matrix)}}
+      matrix: ${{fromJson(needs.get-matrix.outputs.matrix)}}
 
     env:
       PUPPET_GEM_VERSION: '~> 7.24'
