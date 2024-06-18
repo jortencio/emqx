@@ -54,6 +54,10 @@ jobs:
       FACTER_GEM_VERSION: 'https://github.com/puppetlabs/facter#main'
 
     steps:
+    - name: Print matrix
+      run: |
+        echo "${{matrix}}"
+
     - name: Checkout Source
       uses: actions/checkout@v3
 
