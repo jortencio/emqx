@@ -35,7 +35,7 @@ jobs:
     - name: Setup Acceptance Test Matrix
       id: get-matrix
       run: |
-        content="$(cat test_matrix.json)"
+        content=`cat test_matrix.json`
         content="${content//'%'/'%25'}"
         content="${content//$'\n'/'%0A'}"
         content="${content//$'\r'/'%0D'}"
