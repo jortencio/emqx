@@ -3,6 +3,3 @@ docker:
   provisioner: docker
   images:
   - litmusimage/centos:stream8
-  # - litmusimage/oraclelinux:7
-  # - litmusimage/redhat:8
-  # - litmusimage/scientificlinux:7
