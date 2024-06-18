@@ -39,7 +39,7 @@ jobs:
 
 
   acceptance:
-    name: "Acceptance tests (${{matrix.platform.label}}, ${{matrix.collection}})"
+    name: "Acceptance tests (${{matrix.platform.label}}, ${{matrix}})"
     needs:
       - setup_matrix
     if: ${{ needs.setup_matrix.outputs.matrix != '{}' }}
