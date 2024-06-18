@@ -35,11 +35,15 @@ jobs:
     - name: Setup Acceptance Test Matrix
       id: get-matrix
       run: |
-        echo "matrix=$(cat test_matrix.json | jq)" >> $GITHUB_OUTPUT
+        content=$(cat test_matrix.json)
+        content="${content//'%'/'%25'}"
+        content="${content//$'\n'/'%0A'}"
+        content="${content//$'\r'/'%0D'}"
+        echo "matrix=$content" >> $GITHUB_OUTPUT
 
 
   acceptance:
-    name: "Acceptance tests (${{matrix.platform.label}}, ${{matrix.puppet_agent}})"
+    name: "Acceptance tests (${{matrix.platform.label}}, ${{matrix.collection}})"
     needs:
       - setup_matrix
     if: ${{ needs.setup_matrix.outputs.matrix != '{}' }}
@@ -86,7 +90,7 @@ jobs:
 
     - name: Install Agents and module
       run: |
-        bundle exec rake 'litmus:install_agent[${{ matrix.puppet_agent }}]'
+        bundle exec rake 'litmus:install_agent[${{ matrix.collection }}]'
         bundle exec rake litmus:install_module
 
     - name: Run integration tests
