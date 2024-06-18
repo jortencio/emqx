@@ -35,7 +35,7 @@ jobs:
     - name: Setup Acceptance Test Matrix
       id: get-matrix
       run: |
-        echo "matrix=$(cat test_matrix.json | sed "s/\"/'/g" | tr '\n' ' ')" >> $GITHUB_OUTPUT
+        echo "matrix=$(cat test_matrix.json)" >> $GITHUB_OUTPUT
 
 
   acceptance:
