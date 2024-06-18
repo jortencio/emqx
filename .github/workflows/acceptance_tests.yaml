@@ -39,7 +39,7 @@ jobs:
 
 
   acceptance:
-    name: "Acceptance tests (${{matrix.platform.label}}, ${{matrix.puppet_agent}})"
+    name: "Acceptance tests (${{matrix.platform.label}}, ${{matrix.collection}})"
     needs:
       - setup_matrix
     if: ${{ needs.setup_matrix.outputs.matrix != '{}' }}
@@ -86,7 +86,7 @@ jobs:
 
     - name: Install Agents and module
       run: |
-        bundle exec rake 'litmus:install_agent[${{ matrix.puppet_agent }}]'
+        bundle exec rake 'litmus:install_agent[${{ matrix.collection }}]'
         bundle exec rake litmus:install_module
 
     - name: Run integration tests
