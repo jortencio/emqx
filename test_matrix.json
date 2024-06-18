@@ -1,18 +1,27 @@
 {
     "platform": [
         {
-            "label": "CentOS-8",
+            "label": "CentOS-7",
             "provider": "docker",
-            "image": "litmusimage/centos:stream8"
+            "image": "litmusimage/centos:7"
         },
         {
-            "label": "RedHat-9",
+            "label": "OracleLinux-7",
             "provider": "docker",
-            "image": "litmusimage/redhat:9"
+            "image": "litmusimage/oraclelinux:7"
+        },
+        {
+            "label": "RedHat-8",
+            "provider": "docker",
+            "image": "litmusimage/redhat:8"
+        },
+        {
+            "label": "ScientificLinux-7",
+            "provider": "docker",
+            "image": "litmusimage/scientificlinux:7"
         }
     ],
     "collection": [
-        "puppet7-nightly",
-        "puppet8-nightly"
+        "puppet7-nightly"
     ]
 }
