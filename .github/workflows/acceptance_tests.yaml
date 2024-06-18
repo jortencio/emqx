@@ -24,6 +24,19 @@ jobs:
         with:
           filepath: ./test_matrix.json
 
+  run-for-everything:
+    name: Run for each Key Value combination in the JSON
+    needs: get-matrix
+    permissions: {}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.get-matrix.outputs.matrix) }}
+    steps:
+      - name: Echo matrix
+        run: |
+          echo "${{ matrix.key }}"
+          echo "${{ matrix.value }}"
+
   acceptance:
     name: "Acceptance tests (${{matrix.platform.label}}, ${{matrix.collection}})"
     needs:
