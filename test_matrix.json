@@ -4,6 +4,11 @@
             "label": "CentOS-8",
             "provider": "docker",
             "image": "litmusimage/centos:stream8"
+        },
+        {
+            "label": "RedHat-9",
+            "provider": "docker",
+            "image": "litmusimage/redhat:9"
         }
     ],
     "collection": [
