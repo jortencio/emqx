@@ -4,7 +4,8 @@ name: "Acceptance Testing"
 on: 
   push:
     branches:
-      - "*"
+      - "main"
+      - "feature_*"
 
 jobs:
   setup_matrix:
