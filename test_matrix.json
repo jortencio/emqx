@@ -7,8 +7,6 @@
         }
     ],
     "puppet_agent:": [
-        {
-            "version": "puppet7-nightly"
-        }
+        "puppet7-nightly"
     ]
 }
