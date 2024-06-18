@@ -6,7 +6,8 @@
             "image": "litmusimage/centos:stream8"
         }
     ],
-    "collection:": [
-        "puppet7-nightly"
+    "collection": [
+        "puppet7-nightly",
+        "puppet8-nightly"
     ]
 }

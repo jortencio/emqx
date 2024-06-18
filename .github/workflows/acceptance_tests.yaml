@@ -7,99 +7,96 @@ on:
       - "*"
 
 jobs:
-  get-matrix:
-    name: Get Matrix from JSON
+  setup_matrix:
+    name: "Setup Test Matrix"
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     outputs:
-      matrix: ${{ steps.matrix.outputs.matrix }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      matrix: ${{ steps.get-matrix.outputs.matrix }}
 
-      - name: Get Matrix
-        id: matrix
-        uses: Surnet/get-json-matrix@v1
-        with:
-          filepath: ./test_matrix.json
-
-  run-for-everything:
-    name: Run for each Key Value combination in the JSON
-    needs: get-matrix
-    permissions: {}
-    runs-on: ubuntu-latest
-    strategy:
-      matrix: ${{ fromJson(needs.get-matrix.outputs.matrix) }}
     steps:
-      - name: Echo matrix
-        run: |
-          echo "${{ matrix.key }}"
-          echo "${{ matrix.value }}"
+    - name: Checkout Source
+      uses: actions/checkout@v3
+      if: ${{ github.repository_owner == 'jortencio' }}
+
+    - name: Activate Ruby 2.7
+      uses: ruby/setup-ruby@v1
+      if: ${{ github.repository_owner == 'jortencio' }}
+      with:
+        ruby-version: "2.7"
+        bundler-cache: true
+
+    - name: Print bundle environment
+      if: ${{ github.repository_owner == 'jortencio' }}
+      run: |
+        echo ::group::bundler environment
+        bundle env
+        echo ::endgroup::
+
+    - name: Setup Acceptance Test Matrix
+      id: get-matrix
+      run: |
+        echo "matrix=$(cat test_matrix.json | tr -s '\n' ' ')" >> $GITHUB_OUTPUT
+
 
   acceptance:
     name: "Acceptance tests (${{matrix.platform.label}}, ${{matrix.collection}})"
     needs:
-      - get-matrix
-    if: ${{ needs.get-matrix.outputs.matrix != '{}' }}
+      - setup_matrix
+    if: ${{ needs.setup_matrix.outputs.matrix != '{}' }}
 
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(needs.get-matrix.outputs.matrix)}}
+      matrix: ${{fromJson(needs.setup_matrix.outputs.matrix)}}
 
     env:
       PUPPET_GEM_VERSION: '~> 7.24'
       FACTER_GEM_VERSION: 'https://github.com/puppetlabs/facter#main'
 
     steps:
-    - name: Print matrix
-      run: |
-        echo "${{matrix.platform}}"
+      - name: Checkout Source
+        uses: actions/checkout@v3
 
-    - name: Checkout Source
-      uses: actions/checkout@v3
+      - name: Activate Ruby 2.7
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "2.7"
+          bundler-cache: true
 
-    - name: Activate Ruby 2.7
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: "2.7"
-        bundler-cache: true
+      - name: Print bundle environment
+        run: |
+          echo ::group::bundler environment
+          bundle env
+          echo ::endgroup::
 
-    - name: Print bundle environment
-      run: |
-        echo ::group::bundler environment
-        bundle env
-        echo ::endgroup::
+      - name: Create the fixtures directory
+        run: |
+          bundle exec rake spec_prep
 
-    - name: Create the fixtures directory
-      run: |
-        bundle exec rake spec_prep
+      - name: check vars
+        run: |
+          export
 
-    - name: check vars
-      run: |
-        export
+      - name: Provision test environment
+        run: |
+          # bundle exec rake "litmus:provision_list[docker]"
+          bundle exec rake "litmus:provision[${{matrix.platform.provider}},${{ matrix.platform.image }}]"
+          FILE='spec/fixtures/litmus_inventory.yaml'
+          sed -e 's/password: .*/password: "[redacted]"/' < $FILE || true
 
-    - name: Provision test environment
-      run: |
-        # bundle exec rake "litmus:provision_list[docker]"
-        bundle exec rake "litmus:provision[${{matrix.platform.provider}},${{ matrix.platform.image }}]"
-        FILE='spec/fixtures/litmus_inventory.yaml'
-        sed -e 's/password: .*/password: "[redacted]"/' < $FILE || true
+      - name: Install Agents and module
+        run: |
+          bundle exec rake 'litmus:install_agent[${{ matrix.collection }}]'
+          bundle exec rake litmus:install_module
 
-    - name: Install Agents and module
-      run: |
-        bundle exec rake 'litmus:install_agent[${{ matrix.collection }}]'
-        bundle exec rake litmus:install_module
+      - name: Run integration tests
+        run: |
+          bundle exec rake litmus:acceptance:parallel
 
-    - name: Run integration tests
-      run: |
-        bundle exec rake litmus:acceptance:parallel
-
-    - name: Remove test environment
-      if: ${{ always() }}
-      continue-on-error: true
-      run: |
-        ls -lh ./spec/fixtures/
-        cat ./spec/fixtures/litmus_inventory.yaml
-        bundle exec rake 'litmus:tear_down'
+      - name: Remove test environment
+        if: ${{ always() }}
+        continue-on-error: true
+        run: |
+          ls -lh ./spec/fixtures/
+          cat ./spec/fixtures/litmus_inventory.yaml
+          bundle exec rake 'litmus:tear_down'
