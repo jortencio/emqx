@@ -17,17 +17,14 @@ jobs:
     steps:
     - name: Checkout Source
       uses: actions/checkout@v3
-      if: ${{ github.repository_owner == 'jortencio' }}
 
     - name: Activate Ruby 2.7
       uses: ruby/setup-ruby@v1
-      if: ${{ github.repository_owner == 'jortencio' }}
       with:
         ruby-version: "2.7"
         bundler-cache: true
 
     - name: Print bundle environment
-      if: ${{ github.repository_owner == 'jortencio' }}
       run: |
         echo ::group::bundler environment
         bundle env
@@ -37,10 +34,11 @@ jobs:
       id: get-matrix
       run: |
         echo "matrix=$(cat test_matrix.json | tr -s '\n' ' ')" >> $GITHUB_OUTPUT
+        # bundle exec matrix_from_metadata_v2 # Can use this to source matrix from metadata.json instead of test_matrix.json
 
 
   acceptance:
-    name: "Acceptance tests (${{matrix.platform.label}}, ${{matrix.collection}})"
+    name: "Acceptance tests (${{matrix.platforms.label}}, ${{matrix.collection}})"
     needs:
       - setup_matrix
     if: ${{ needs.setup_matrix.outputs.matrix != '{}' }}
@@ -56,7 +54,7 @@ jobs:
 
     steps:
       - name: Checkout Source
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Activate Ruby 2.7
         uses: ruby/setup-ruby@v1
@@ -81,7 +79,7 @@ jobs:
       - name: Provision test environment
         run: |
           # bundle exec rake "litmus:provision_list[docker]"
-          bundle exec rake "litmus:provision[${{matrix.platform.provider}},${{ matrix.platform.image }}]"
+          bundle exec rake "litmus:provision[${{matrix.platforms.provider}},${{ matrix.platforms.image }}]"
           FILE='spec/fixtures/litmus_inventory.yaml'
           sed -e 's/password: .*/password: "[redacted]"/' < $FILE || true
 
